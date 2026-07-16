@@ -90,7 +90,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  --services-peek: 72px; /* fatia fixa do próximo slide visível à direita */
+  --services-peek: 48px; /* fatia real do próximo CARD visível — dentro da faixa 40–60px pedida */
 }
 
 .services__viewport{
@@ -115,15 +115,18 @@
 
 /* =====================================================
    SLIDE — ESTRUTURA
-   Técnica "peek carousel": o slide ocupa o viewport menos
-   uma fatia fixa (24–32px), revelando discretamente o
-   início do próximo slide à direita. A largura do CARD em
-   si não muda — quem cria o respiro é o próprio viewport.
+   Técnica "peek carousel" (Netflix / Apple TV / Spotify):
+   o slide ocupa o viewport menos uma fatia fixa (40–60px).
+   Crucial: o slide em si NÃO tem gutter horizontal — quem
+   cria o respiro de leitura é o .service-slide__content.
+   Isso libera o .service-slide__visual para se estender até
+   a borda real do slide, para que a fatia de "peek" mostre
+   o CARD do próximo item (não um espaço vazio de padding).
    ===================================================== */
 .service-slide{
   flex: 0 0 calc(100% - var(--services-peek));
   width: calc(100% - var(--services-peek));
-  padding: 0 var(--container-pad);
+  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -179,6 +182,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  padding: 0 var(--container-pad);
 }
 
 .service-slide__index{
@@ -590,7 +594,7 @@
 }
 
 @media (min-width: 900px){
-  .services__stage{ --services-peek: 32px; }
+  .services__stage{ --services-peek: 56px; }
 
   .service-slide{
     flex-direction: row;
@@ -607,10 +611,17 @@
   .service-slide__content{
     flex: 1 1 40%;
     gap: 16px;
+    /* padding só do lado externo (o que fica perto da borda real do
+       slide); o lado interno já é resolvido pelo gap da linha acima */
+    padding: 0 var(--container-pad) 0 0;
   }
 
   .service-slide:nth-of-type(even){
     flex-direction: row-reverse;
+  }
+
+  .service-slide:nth-of-type(even) .service-slide__content{
+    padding: 0 0 0 var(--container-pad);
   }
 
   .services__nav{ margin-top: 48px; }
