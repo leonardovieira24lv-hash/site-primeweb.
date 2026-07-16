@@ -1,0 +1,76 @@
+/* =====================================================
+   RESPONSIVIDADE — MOBILE FIRST
+   Base (index/header/hero.css) = mobile.
+   Breakpoints abaixo progressivamente ampliam o layout.
+   ===================================================== */
+
+/* ---------- ≥ 480px : telas grandes de celular ---------- */
+@media (min-width: 480px){
+  .hero__actions{ gap: 18px; }
+}
+
+/* ---------- ≥ 640px : phablets ---------- */
+@media (min-width: 640px){
+  :root{ --container-pad: 5vw; }
+
+  .intro__mark{ width: 96px; height: 96px; }
+  .intro__title{ font-size: 1.7rem; }
+}
+
+/* ---------- ≥ 768px : tablet / nav desktop aparece ---------- */
+@media (min-width: 768px){
+  :root{ --container-pad: 4.5vw; }
+
+  .header__nav{ display: block; }
+  .header__actions .btn{ display: inline-flex; }
+  .header__burger{ display: none; }
+
+  .hero__title{ letter-spacing: -0.035em; }
+  .hero__scroll-label{ display: inline-block; }
+}
+
+/* ---------- ≥ 1024px : desktop ---------- */
+@media (min-width: 1024px){
+  :root{
+    --container-pad: 4vw;
+    --header-h: 92px;
+  }
+
+  .hero__content{ gap: 32px; }
+  .hero__subtitle{ max-width: 560px; }
+
+  .intro__mark{ width: 108px; height: 108px; }
+  .intro__title{ font-size: 1.9rem; letter-spacing: 0.36em; }
+  .intro__tagline{ font-size: 0.86rem; }
+}
+
+/* ---------- ≥ 1280px : desktop grande ---------- */
+@media (min-width: 1280px){
+  :root{ --container-pad: 5vw; }
+
+  .header__nav-list{ gap: 48px; }
+}
+
+/* ---------- ≥ 1600px : telas muito grandes ---------- */
+@media (min-width: 1600px){
+  :root{ --container-pad: 8vw; }
+}
+
+/* ---------- altura reduzida (notebooks baixos / paisagem) ---------- */
+@media (max-height: 620px) and (min-width: 768px){
+  .hero__content{ padding-top: calc(var(--header-h) - 12px); gap: 18px; }
+  .hero__scroll{ display: none; }
+}
+
+/* ---------- celular em modo paisagem ---------- */
+@media (max-width: 900px) and (orientation: landscape){
+  .hero{ height: 100vh; }
+  .hero__content{ padding-top: 76px; gap: 14px; }
+  .hero__scroll{ display: none; }
+}
+
+/* ---------- telas muito estreitas ---------- */
+@media (max-width: 360px){
+  .hero__eyebrow{ font-size: 0.68rem; padding: 6px 12px 6px 10px; }
+  .btn{ height: 48px; padding: 0 20px; font-size: 0.86rem; }
+}

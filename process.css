@@ -1,0 +1,376 @@
+/* =====================================================
+   PRIME WEB — PROCESSO DE TRABALHO
+   Experiência visual: linha dourada desenhada pelo scroll,
+   conectando cada etapa do método. Sem cards, sem timeline comum.
+   Self-contained — não depende de header.css / hero.css /
+   services.css / portfolio.css.
+   ===================================================== */
+
+.process{
+  position: relative;
+  background: linear-gradient(180deg, var(--c-black) 0%, var(--c-graphite) 42%, var(--c-graphite) 58%, var(--c-black) 100%);
+  padding: clamp(84px, 13vw, 148px) 0 clamp(96px, 13vw, 160px);
+  overflow: hidden;
+}
+
+/* =====================================================
+   CABEÇALHO DA SEÇÃO
+   ===================================================== */
+.process__intro{
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto clamp(64px, 9vw, 120px);
+  padding: 0 var(--container-pad);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.process__eyebrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-ice-dim);
+  padding: 8px 16px 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--c-border-strong);
+  background: rgba(244,244,242,0.03);
+  backdrop-filter: blur(8px);
+}
+
+.process__eyebrow-dot{
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  box-shadow: 0 0 10px 2px var(--c-gold-dim);
+  flex-shrink: 0;
+}
+
+.process__title{
+  font-size: clamp(1.9rem, 5.6vw, 3.4rem);
+  line-height: 1.08;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--c-ice);
+  max-width: 20ch;
+}
+
+.process__subtitle{
+  max-width: 480px;
+  font-size: 1rem;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--c-ice-dim);
+}
+
+/* =====================================================
+   LINHA DO TEMPO
+   ===================================================== */
+.process__timeline{
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 var(--container-pad);
+}
+
+/* ---------- espinha central (trilho + preenchimento dourado) ---------- */
+.process__spine{
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: calc(var(--container-pad) + 21px);
+  width: 2px;
+  pointer-events: none;
+}
+
+.process__spine-track{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, var(--c-border-strong) 6%, var(--c-border-strong) 94%, transparent);
+  border-radius: 2px;
+}
+
+.process__spine-fill{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scaleY(0);
+  transform-origin: top center;
+  background: linear-gradient(180deg, var(--c-gold-soft), var(--c-gold) 60%, var(--c-gold) 100%);
+  border-radius: 2px;
+  box-shadow: 0 0 14px 1px var(--c-gold-dim);
+  will-change: transform;
+}
+
+/* =====================================================
+   ETAPAS
+   ===================================================== */
+.process__steps{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(64px, 9vw, 112px);
+}
+
+.process-step{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding-left: 48px;
+}
+
+/* ---------- nó luminoso sobre a espinha ---------- */
+.process-step__node{
+  position: absolute;
+  top: 2px;
+  left: calc(var(--container-pad) + 21px - 48px);
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%);
+}
+
+.process-step__node-dot{
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--c-graphite-2);
+  border: 1px solid var(--c-border-strong);
+  transition: background var(--dur-med) var(--ease-out),
+              border-color var(--dur-med) var(--ease-out),
+              box-shadow var(--dur-med) var(--ease-out),
+              transform var(--dur-med) var(--ease-out);
+}
+
+.process-step.is-active .process-step__node-dot{
+  background: var(--c-gold);
+  border-color: var(--c-gold);
+  box-shadow: 0 0 0 4px var(--c-gold-dim), 0 0 18px 3px var(--c-gold-dim);
+  transform: scale(1.15);
+}
+
+/* pulso discreto quando ativo */
+@keyframes pcNodePulse{
+  0%, 100%{ box-shadow: 0 0 0 4px var(--c-gold-dim), 0 0 18px 3px var(--c-gold-dim); }
+  50%{ box-shadow: 0 0 0 6px var(--c-gold-dim), 0 0 26px 6px var(--c-gold-dim); }
+}
+.process-step.is-active .process-step__node-dot{
+  animation: pcNodePulse 2.6s ease-in-out infinite;
+}
+
+/* ---------- corpo do texto ---------- */
+.process-step__body{
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 58ch;
+  padding: 6px 0;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.process-step__index{
+  font-family: var(--f-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--c-gold);
+}
+
+.process-step__title{
+  font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--c-ice);
+}
+
+.process-step__desc{
+  font-size: 0.96rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--c-ice-dim);
+  max-width: 46ch;
+}
+
+/* hover elegante — leve elevação e clareamento do texto */
+@media (hover: hover){
+  .process-step__body:hover{
+    transform: translateX(4px);
+  }
+  .process-step__body:hover .process-step__title{
+    color: var(--c-gold-soft);
+  }
+}
+
+/* ---------- elementos flutuando (decorativos) ---------- */
+.process-step__orbit{
+  position: absolute;
+  inset: -40px -10px auto auto;
+  width: 140px;
+  height: 140px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.75;
+  display: none;
+}
+
+.pc-orb{
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--c-border-strong);
+  background: rgba(244,244,242,0.03);
+  backdrop-filter: blur(6px);
+}
+
+.pc-orb--gold{
+  border-color: var(--c-gold-dim);
+  background: rgba(201,168,105,0.05);
+}
+
+.pc-dot{
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-gold);
+  box-shadow: 0 0 10px 2px var(--c-gold-dim);
+}
+
+@keyframes pcFloatA{
+  0%, 100%{ transform: translate(0,0); }
+  50%{ transform: translate(-5%, 6%); }
+}
+@keyframes pcFloatB{
+  0%, 100%{ transform: translate(0,0); }
+  50%{ transform: translate(6%, -5%); }
+}
+
+.process-step:nth-of-type(1) .process-step__orbit .pc-orb--1{ width: 56px; height: 56px; top: 8px; right: 18px; animation: pcFloatA 11s ease-in-out infinite; }
+.process-step:nth-of-type(1) .process-step__orbit .pc-orb--2{ width: 30px; height: 30px; top: 46px; right: 62px; animation: pcFloatB 14s ease-in-out infinite; }
+.process-step:nth-of-type(1) .process-step__orbit .pc-dot{ top: 4px; right: 78px; }
+
+.process-step:nth-of-type(2) .process-step__orbit .pc-orb--1{ width: 44px; height: 44px; top: 14px; right: 30px; animation: pcFloatB 12.5s ease-in-out infinite; }
+.process-step:nth-of-type(2) .process-step__orbit .pc-orb--2{ width: 64px; height: 64px; top: -6px; right: 74px; animation: pcFloatA 16s ease-in-out infinite; }
+.process-step:nth-of-type(2) .process-step__orbit .pc-dot{ top: 60px; right: 20px; }
+
+.process-step:nth-of-type(3) .process-step__orbit .pc-orb--1{ width: 50px; height: 50px; top: 4px; right: 20px; animation: pcFloatA 13s ease-in-out infinite; }
+.process-step:nth-of-type(3) .process-step__orbit .pc-orb--2{ width: 26px; height: 26px; top: 54px; right: 58px; animation: pcFloatB 10s ease-in-out infinite; }
+.process-step:nth-of-type(3) .process-step__orbit .pc-dot{ top: 10px; right: 70px; }
+
+.process-step:nth-of-type(4) .process-step__orbit .pc-orb--1{ width: 60px; height: 60px; top: 10px; right: 24px; animation: pcFloatB 15s ease-in-out infinite; }
+.process-step:nth-of-type(4) .process-step__orbit .pc-orb--2{ width: 34px; height: 34px; top: 58px; right: 70px; animation: pcFloatA 11.5s ease-in-out infinite; }
+.process-step:nth-of-type(4) .process-step__orbit .pc-dot{ top: 2px; right: 90px; }
+
+.process-step:nth-of-type(5) .process-step__orbit .pc-orb--1{ width: 48px; height: 48px; top: 6px; right: 16px; animation: pcFloatA 12s ease-in-out infinite; }
+.process-step:nth-of-type(5) .process-step__orbit .pc-orb--2{ width: 28px; height: 28px; top: 50px; right: 56px; animation: pcFloatB 13.5s ease-in-out infinite; }
+.process-step:nth-of-type(5) .process-step__orbit .pc-dot{ top: 64px; right: 12px; }
+
+/* =====================================================
+   REVELAÇÃO — herda .reveal-up global (animations.css),
+   com fallback local caso ainda não tenha carregado.
+   ===================================================== */
+.process-step .reveal-up{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.process-step .reveal-up.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   RESPONSIVIDADE — mobile first (self-contained)
+   ===================================================== */
+@media (min-width: 760px){
+  .process-step__orbit{ display: block; }
+}
+
+@media (min-width: 900px){
+  .process__timeline{ max-width: 1040px; }
+
+  .process__spine{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .process-step{
+    padding-left: 0;
+    justify-content: center;
+  }
+
+  .process-step__node{
+    left: 50%;
+    top: 8px;
+  }
+
+  .process-step__body{
+    width: calc(50% - 56px);
+  }
+
+  .process-step:nth-of-type(odd){
+    justify-content: flex-start;
+  }
+  .process-step:nth-of-type(odd) .process-step__body{
+    text-align: right;
+    margin-right: 56px;
+  }
+  .process-step:nth-of-type(odd) .process-step__desc{
+    margin-left: auto;
+  }
+  .process-step:nth-of-type(odd) .process-step__orbit{
+    left: -10px;
+    right: auto;
+  }
+  .process-step:nth-of-type(odd) .process-step__orbit .pc-orb,
+  .process-step:nth-of-type(odd) .process-step__orbit .pc-dot{
+    right: auto;
+  }
+  .process-step:nth-of-type(odd):nth-of-type(1) .process-step__orbit .pc-orb--1{ left: 18px; }
+  .process-step:nth-of-type(odd):nth-of-type(1) .process-step__orbit .pc-orb--2{ left: 62px; }
+  .process-step:nth-of-type(odd):nth-of-type(1) .process-step__orbit .pc-dot{ left: 78px; }
+  .process-step:nth-of-type(odd):nth-of-type(3) .process-step__orbit .pc-orb--1{ left: 20px; }
+  .process-step:nth-of-type(odd):nth-of-type(3) .process-step__orbit .pc-orb--2{ left: 58px; }
+  .process-step:nth-of-type(odd):nth-of-type(3) .process-step__orbit .pc-dot{ left: 70px; }
+  .process-step:nth-of-type(odd):nth-of-type(5) .process-step__orbit .pc-orb--1{ left: 16px; }
+  .process-step:nth-of-type(odd):nth-of-type(5) .process-step__orbit .pc-orb--2{ left: 56px; }
+  .process-step:nth-of-type(odd):nth-of-type(5) .process-step__orbit .pc-dot{ left: 12px; }
+
+  .process-step:nth-of-type(even){
+    justify-content: flex-end;
+  }
+  .process-step:nth-of-type(even) .process-step__body{
+    text-align: left;
+    margin-left: 56px;
+  }
+
+  @media (hover: hover){
+    .process-step:nth-of-type(odd) .process-step__body:hover{
+      transform: translateX(-4px);
+    }
+    .process-step:nth-of-type(even) .process-step__body:hover{
+      transform: translateX(4px);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .process-step__orbit .pc-orb,
+  .process-step__orbit .pc-dot,
+  .process-step.is-active .process-step__node-dot{
+    animation: none !important;
+  }
+}

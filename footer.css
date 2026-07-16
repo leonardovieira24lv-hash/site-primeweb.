@@ -1,0 +1,231 @@
+/* =====================================================
+   PRIME WEB — FOOTER PREMIUM
+   Preparado para receber o novo Brand Kit (logo, ícones sociais).
+   Self-contained — não depende de header.css / hero.css /
+   services.css / portfolio.css / process.css / why.css / conversion.css.
+   ===================================================== */
+
+.site-footer{
+  position: relative;
+  background: var(--c-black);
+  padding: clamp(64px, 9vw, 108px) var(--container-pad) 0;
+  border-top: 1px solid var(--c-border);
+  overflow: hidden;
+}
+
+.site-footer::before{
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  width: min(900px, 70%);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--c-gold-dim), transparent);
+  opacity: 0.7;
+}
+
+.site-footer__top{
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 80px);
+  padding-bottom: clamp(48px, 7vw, 80px);
+  border-bottom: 1px solid var(--c-border);
+}
+
+/* ---------- bloco de marca ---------- */
+.site-footer__brand{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 46ch;
+}
+
+.site-footer__logo{
+  height: 40px;
+  width: auto;
+  opacity: 0.94;
+}
+
+.site-footer__desc{
+  font-size: 0.96rem;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--c-ice-dim);
+}
+
+.site-footer__brand-social{
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.site-footer__social-link{
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--c-border-strong);
+  background: rgba(244,244,242,0.03);
+  color: var(--c-ice-dim);
+  transition: color var(--dur-med) var(--ease-out),
+              border-color var(--dur-med) var(--ease-out),
+              transform var(--dur-med) var(--ease-out),
+              box-shadow var(--dur-med) var(--ease-out);
+}
+
+.site-footer__social-link img{
+  width: 17px;
+  height: 17px;
+  display: block;
+}
+
+@media (hover: hover){
+  .site-footer__social-link:hover{
+    color: var(--c-gold-soft);
+    border-color: var(--c-gold-dim);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35), 0 0 14px 1px var(--c-gold-dim);
+  }
+}
+
+/* ---------- colunas de links ---------- */
+.site-footer__columns{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(32px, 5vw, 56px);
+}
+
+.site-footer__col-title{
+  font-family: var(--f-body);
+  font-size: 0.74rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--c-gold-soft);
+  margin-bottom: 18px;
+}
+
+.site-footer__col-list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-footer__col-list a{
+  font-size: 0.94rem;
+  color: var(--c-ice-dim);
+  text-decoration: none;
+  width: fit-content;
+  position: relative;
+  transition: color var(--dur-med) var(--ease-out);
+}
+
+.site-footer__col-list a::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.site-footer__col-list a:hover{
+  color: var(--c-ice);
+}
+.site-footer__col-list a:hover::after{
+  transform: scaleX(1);
+}
+
+.site-footer__col-list li{
+  font-size: 0.94rem;
+  color: var(--c-ice-dim);
+}
+
+.site-footer__col-list li strong{
+  color: var(--c-ice-faint);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ---------- rodapé inferior ---------- */
+.site-footer__bottom{
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 22px 0 clamp(24px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 0.82rem;
+  color: var(--c-ice-faint);
+}
+
+.site-footer__legal{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+}
+
+.site-footer__legal a{
+  color: var(--c-ice-faint);
+  text-decoration: none;
+  transition: color var(--dur-med) var(--ease-out);
+}
+.site-footer__legal a:hover{
+  color: var(--c-gold-soft);
+}
+
+/* =====================================================
+   REVELAÇÃO — herda .reveal-up global (animations.css)
+   ===================================================== */
+.site-footer .reveal-up{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 800ms var(--ease-out), transform 800ms var(--ease-out);
+}
+.site-footer .reveal-up.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   RESPONSIVIDADE — mobile first (self-contained)
+   ===================================================== */
+@media (min-width: 640px){
+  .site-footer__columns{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 900px){
+  .site-footer__top{
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .site-footer__brand{
+    flex: 1 1 32%;
+  }
+  .site-footer__columns{
+    flex: 1 1 60%;
+  }
+  .site-footer__bottom{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

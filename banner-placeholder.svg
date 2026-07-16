@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="bannerTitle">
+  <title id="bannerTitle">Espaço reservado para arte do banner promocional</title>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d0d0f"/>
+      <stop offset="55%" stop-color="#151517"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="26%" cy="24%" r="55%">
+      <stop offset="0%" stop-color="#c9a869" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#c9a869" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#232326" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bgGrad)"/>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.5"/>
+  <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect x="24" y="24" width="1552" height="852" rx="18" fill="none" stroke="#3a3a3d" stroke-width="1.5" stroke-dasharray="10 8"/>
+  <polygon points="800,340 900,440 800,540 700,440" fill="none" stroke="#c9a869" stroke-width="1.6"/>
+  <polygon points="800,380 860,440 800,500 740,440" fill="none" stroke="#c9a869" stroke-width="1" opacity="0.6"/>
+  <text x="800" y="620" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="26" letter-spacing="4" fill="#8a8a8f">ESPAÇO RESERVADO PARA ARTE</text>
+  <text x="800" y="654" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="#5a5a5e">1600 × 900 · SUBSTITUIR PELO BRAND KIT OFICIAL</text>
+</svg>

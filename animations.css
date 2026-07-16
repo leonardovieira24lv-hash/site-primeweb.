@@ -1,0 +1,185 @@
+/* =====================================================
+   ANIMAÇÕES — KEYFRAMES GLOBAIS
+   ===================================================== */
+
+@keyframes pulseDot{
+  0%, 100%{ transform: scale(1); opacity: 1; }
+  50%{ transform: scale(1.5); opacity: 0.6; }
+}
+
+@keyframes scrollThumb{
+  0%{ top: -30%; }
+  55%{ top: 100%; }
+  100%{ top: 100%; }
+}
+
+@keyframes orbFloatA{
+  0%, 100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(-4%, 5%) scale(1.08); }
+}
+
+@keyframes orbFloatB{
+  0%, 100%{ transform: translate(0,0) scale(1); }
+  50%{ transform: translate(5%, -6%) scale(1.05); }
+}
+
+@keyframes fadeIn{
+  from{ opacity: 0; }
+  to{ opacity: 1; }
+}
+
+/* =====================================================
+   REVEAL — animação de entrada do conteúdo do Hero
+   (classes ativadas via JS adicionando .is-visible)
+   ===================================================== */
+.reveal-up{
+  opacity: 0;
+  transform: translateY(26px);
+  filter: blur(6px);
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 900ms var(--ease-out),
+    filter 900ms var(--ease-out);
+}
+
+.reveal-up.is-visible{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* delays escalonados controlados por data-delay */
+.reveal-up[data-delay="0"]{ transition-delay: 0ms; }
+.reveal-up[data-delay="1"]{ transition-delay: 90ms; }
+.reveal-up[data-delay="2"]{ transition-delay: 200ms; }
+.reveal-up[data-delay="3"]{ transition-delay: 320ms; }
+.reveal-up[data-delay="4"]{ transition-delay: 440ms; }
+
+/* =====================================================
+   INTRO
+   ===================================================== */
+.intro{
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-black);
+  transition: opacity 640ms var(--ease-in-out), visibility 0s linear 640ms;
+}
+
+.intro.is-hidden{
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro__stage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.intro__mark{
+  width: 84px;
+  height: 84px;
+  overflow: visible;
+}
+
+.intro__mark-path{
+  fill: none;
+  stroke: var(--c-gold);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 460;
+  stroke-dashoffset: 460;
+  filter: drop-shadow(0 0 6px rgba(201,168,105,0.45));
+}
+
+.intro__mark-path--inner{
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  stroke: var(--c-gold-soft);
+}
+
+.intro__mark-path--axis{
+  stroke-dasharray: 132;
+  stroke-dashoffset: 132;
+  stroke-width: 1;
+  opacity: 0.6;
+}
+
+.intro.is-drawing .intro__mark-path{
+  animation: drawMark 900ms var(--ease-out) forwards;
+}
+.intro.is-drawing .intro__mark-path--inner{
+  animation: drawMarkInner 700ms var(--ease-out) 200ms forwards;
+}
+.intro.is-drawing .intro__mark-path--axis{
+  animation: drawMarkAxis 600ms var(--ease-out) 120ms forwards;
+}
+
+@keyframes drawMark{ to{ stroke-dashoffset: 0; } }
+@keyframes drawMarkInner{ to{ stroke-dashoffset: 0; } }
+@keyframes drawMarkAxis{ to{ stroke-dashoffset: 0; } }
+
+.intro__type{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.intro__title{
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  color: var(--c-ice);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out), letter-spacing 620ms var(--ease-out);
+}
+
+.intro__tagline{
+  font-family: var(--f-body);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--c-ice-dim);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 560ms var(--ease-out) 120ms, transform 560ms var(--ease-out) 120ms;
+}
+
+.intro.is-typing .intro__title{
+  opacity: 1;
+  transform: translateY(0);
+  letter-spacing: 0.38em;
+}
+.intro.is-typing .intro__tagline{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   MICRO-INTERAÇÕES DE HOVER PREMIUM
+   ===================================================== */
+.btn::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.35), transparent);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease-out);
+}
+.btn:hover::before{ transform: translateX(120%); }
+
+/* fade genérico usado por elementos que aparecem após o load */
+.fade-in{
+  animation: fadeIn 900ms var(--ease-out) both;
+}
