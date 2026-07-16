@@ -114,14 +114,24 @@
 
 /* =====================================================
    SLIDE — ESTRUTURA
+   Levemente mais estreito que o viewport para revelar
+   uma fatia discreta do próximo slide (leitura de carrossel).
    ===================================================== */
 .service-slide{
-  flex: 0 0 100%;
-  width: 100%;
+  flex: 0 0 90%;
+  width: 90%;
   padding: 0 var(--container-pad);
   display: flex;
   flex-direction: column;
   gap: 32px;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
+}
+
+.service-slide.is-peeked{
+  opacity: 0.42;
+  transform: scale(0.965);
 }
 
 .service-slide__visual{
@@ -578,6 +588,8 @@
 
 @media (min-width: 900px){
   .service-slide{
+    flex: 0 0 94%;
+    width: 94%;
     flex-direction: row;
     align-items: center;
     gap: clamp(40px, 5vw, 88px);

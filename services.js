@@ -26,6 +26,8 @@
   const state = {
     index: 0,
     viewportWidth: viewport.getBoundingClientRect().width,
+    slideWidth: slides[0] ? slides[0].getBoundingClientRect().width : viewport.getBoundingClientRect().width,
+    peek: 0, // espaço (px) entre a borda do viewport e o slide ativo, centralizando-o
     isDragging: false,   // swipe horizontal confirmado e em andamento
     isPending: false,    // ponteiro pressionado, intenção ainda não decidida
     isTouch: false,      // gesto atual veio de touch (vs. mouse)
@@ -36,7 +38,15 @@
     startTranslate: 0,
     currentDrag: 0,
     sectionInView: false,
+    hasPlayedNudge: false, // garante que o "aceno" de entrada rode só uma vez
   };
+  state.peek = (state.viewportWidth - state.slideWidth) / 2;
+
+  function measureGeometry() {
+    state.viewportWidth = viewport.getBoundingClientRect().width;
+    state.slideWidth = slides[0] ? slides[0].getBoundingClientRect().width : state.viewportWidth;
+    state.peek = (state.viewportWidth - state.slideWidth) / 2;
+  }
 
   // distância mínima (px) para decidir a direção do gesto (mouse/caneta)
   const DIRECTION_LOCK = 10;
@@ -66,7 +76,7 @@
   function goTo(index, withTransition) {
     const prevIndex = state.index;
     state.index = ((index % total) + total) % total; // wrap-around
-    const px = -state.index * state.viewportWidth;
+    const px = state.peek - state.index * state.slideWidth;
     const steps = Math.max(1, Math.abs(state.index - prevIndex));
     // pequenas viagens são mais rápidas e "estaladas"; viagens maiores ganham
     // um pouco mais de tempo para não parecerem abruptas
@@ -81,6 +91,8 @@
   function updateUI() {
     slides.forEach((slide, i) => {
       const isActive = i === state.index;
+      slide.classList.toggle("is-current-slide", isActive);
+      slide.classList.toggle("is-peeked", !isActive);
       slide.setAttribute("aria-hidden", isActive ? "false" : "true");
       slide
         .querySelectorAll("a, button")
@@ -125,6 +137,7 @@
     // apenas o botão principal do mouse inicia o gesto
     if (e.pointerType === "mouse" && e.button !== 0) return;
 
+    state.hasPlayedNudge = true; // interação real do usuário cancela o aceno de entrada
     state.isPending = true;
     state.isDragging = false;
     state.isTouch = e.pointerType === "touch" || e.pointerType === "pen";
@@ -132,7 +145,7 @@
     state.startY = e.clientY;
     state.lastX = e.clientX;
     state.startTime = e.timeStamp;
-    state.startTranslate = -state.index * state.viewportWidth;
+    state.startTranslate = state.peek - state.index * state.slideWidth;
     state.currentDrag = state.startTranslate;
     state.pointerId = e.pointerId;
     // a captura só acontece quando a intenção horizontal for confirmada,
@@ -208,7 +221,7 @@
 
     resetGesture();
 
-    const distanceThreshold = state.viewportWidth * SWIPE_THRESHOLD_RATIO;
+    const distanceThreshold = state.slideWidth * SWIPE_THRESHOLD_RATIO;
     const isFlick = velocity >= FLICK_VELOCITY && Math.abs(delta) >= DIRECTION_LOCK * 2;
 
     if (delta <= -distanceThreshold || (isFlick && delta < 0)) {
@@ -239,10 +252,29 @@
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);
     resizeTimer = window.setTimeout(() => {
-      state.viewportWidth = viewport.getBoundingClientRect().width;
+      measureGeometry();
       goTo(state.index, false);
     }, 150);
   });
+
+  /* =====================================================
+     ACENO DE ENTRADA — desloca o track ~12px uma única vez,
+     só para sinalizar discretamente que há conteúdo lateral.
+     ===================================================== */
+  function playEntranceNudge() {
+    if (state.hasPlayedNudge || reduceMotion) return;
+    state.hasPlayedNudge = true;
+
+    const base = state.peek - state.index * state.slideWidth;
+    const NUDGE_PX = 12;
+
+    window.setTimeout(() => {
+      applyTransform(base - NUDGE_PX, true, 420);
+      window.setTimeout(() => {
+        applyTransform(base, true, 420);
+      }, 460);
+    }, 260);
+  }
 
   /* =====================================================
      REVELAÇÃO POR SCROLL
@@ -254,6 +286,7 @@
           state.sectionInView = entry.isIntersecting;
           if (entry.isIntersecting) {
             section.classList.add("is-inview");
+            playEntranceNudge();
           }
         });
       },
