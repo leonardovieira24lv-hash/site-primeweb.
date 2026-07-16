@@ -90,6 +90,7 @@
   position: relative;
   z-index: 2;
   width: 100%;
+  --services-peek: 28px; /* fatia fixa do próximo slide visível à direita */
 }
 
 .services__viewport{
@@ -114,12 +115,14 @@
 
 /* =====================================================
    SLIDE — ESTRUTURA
-   Levemente mais estreito que o viewport para revelar
-   uma fatia discreta do próximo slide (leitura de carrossel).
+   Técnica "peek carousel": o slide ocupa o viewport menos
+   uma fatia fixa (24–32px), revelando discretamente o
+   início do próximo slide à direita. A largura do CARD em
+   si não muda — quem cria o respiro é o próprio viewport.
    ===================================================== */
 .service-slide{
-  flex: 0 0 90%;
-  width: 90%;
+  flex: 0 0 calc(100% - var(--services-peek));
+  width: calc(100% - var(--services-peek));
   padding: 0 var(--container-pad);
   display: flex;
   flex-direction: column;
@@ -131,7 +134,7 @@
 
 .service-slide.is-peeked{
   opacity: 0.42;
-  transform: scale(0.965);
+  transform: scale(0.985);
 }
 
 .service-slide__visual{
@@ -587,9 +590,9 @@
 }
 
 @media (min-width: 900px){
+  .services__stage{ --services-peek: 32px; }
+
   .service-slide{
-    flex: 0 0 94%;
-    width: 94%;
     flex-direction: row;
     align-items: center;
     gap: clamp(40px, 5vw, 88px);

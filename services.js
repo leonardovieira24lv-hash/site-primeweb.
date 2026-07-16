@@ -27,7 +27,6 @@
     index: 0,
     viewportWidth: viewport.getBoundingClientRect().width,
     slideWidth: slides[0] ? slides[0].getBoundingClientRect().width : viewport.getBoundingClientRect().width,
-    peek: 0, // espaço (px) entre a borda do viewport e o slide ativo, centralizando-o
     isDragging: false,   // swipe horizontal confirmado e em andamento
     isPending: false,    // ponteiro pressionado, intenção ainda não decidida
     isTouch: false,      // gesto atual veio de touch (vs. mouse)
@@ -40,12 +39,10 @@
     sectionInView: false,
     hasPlayedNudge: false, // garante que o "aceno" de entrada rode só uma vez
   };
-  state.peek = (state.viewportWidth - state.slideWidth) / 2;
 
   function measureGeometry() {
     state.viewportWidth = viewport.getBoundingClientRect().width;
     state.slideWidth = slides[0] ? slides[0].getBoundingClientRect().width : state.viewportWidth;
-    state.peek = (state.viewportWidth - state.slideWidth) / 2;
   }
 
   // distância mínima (px) para decidir a direção do gesto (mouse/caneta)
@@ -76,7 +73,7 @@
   function goTo(index, withTransition) {
     const prevIndex = state.index;
     state.index = ((index % total) + total) % total; // wrap-around
-    const px = state.peek - state.index * state.slideWidth;
+    const px = -state.index * state.slideWidth;
     const steps = Math.max(1, Math.abs(state.index - prevIndex));
     // pequenas viagens são mais rápidas e "estaladas"; viagens maiores ganham
     // um pouco mais de tempo para não parecerem abruptas
@@ -145,7 +142,7 @@
     state.startY = e.clientY;
     state.lastX = e.clientX;
     state.startTime = e.timeStamp;
-    state.startTranslate = state.peek - state.index * state.slideWidth;
+    state.startTranslate = -state.index * state.slideWidth;
     state.currentDrag = state.startTranslate;
     state.pointerId = e.pointerId;
     // a captura só acontece quando a intenção horizontal for confirmada,
@@ -265,7 +262,7 @@
     if (state.hasPlayedNudge || reduceMotion) return;
     state.hasPlayedNudge = true;
 
-    const base = state.peek - state.index * state.slideWidth;
+    const base = -state.index * state.slideWidth;
     const NUDGE_PX = 12;
 
     window.setTimeout(() => {
