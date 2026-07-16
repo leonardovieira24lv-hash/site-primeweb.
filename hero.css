@@ -69,7 +69,7 @@
   max-height: 620px;
   right: -14%;
   top: -10%;
-  background: radial-gradient(circle, rgba(201,168,105,0.28), rgba(201,168,105,0) 70%);
+  background: radial-gradient(circle, rgba(139,92,246,0.28), rgba(139,92,246,0) 70%);
   animation: orbFloatA 16s ease-in-out infinite;
 }
 

@@ -147,7 +147,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 26% 18%, rgba(201,168,105,0.10), transparent 58%);
+  background: radial-gradient(circle at 26% 18%, rgba(139,92,246,0.10), transparent 58%);
   pointer-events: none;
   z-index: 3;
 }
@@ -237,7 +237,7 @@
 
 .services__arrow:hover{
   border-color: var(--c-gold-dim);
-  background: rgba(201,168,105,0.08);
+  background: rgba(139,92,246,0.08);
   color: var(--c-gold-soft);
   transform: translateY(-2px);
 }
@@ -323,7 +323,7 @@
   filter: blur(46px);
 }
 
-.viz-blob--gold{ background: radial-gradient(circle, rgba(201,168,105,0.4), rgba(201,168,105,0) 72%); }
+.viz-blob--gold{ background: radial-gradient(circle, rgba(139,92,246,0.4), rgba(139,92,246,0) 72%); }
 .viz-blob--ice{ background: radial-gradient(circle, rgba(244,244,242,0.16), rgba(244,244,242,0) 72%); }
 
 .viz-tag{
@@ -476,7 +476,7 @@
   width: 30%; height: 26%;
   bottom: 14%; left: 12%;
   clip-path: polygon(50% 0, 0 100%, 100% 100%);
-  background: rgba(201,168,105,0.05);
+  background: rgba(139,92,246,0.05);
 }
 .viz--identity .viz-shape--square{
   width: 24%; height: 24%;

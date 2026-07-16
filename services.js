@@ -26,12 +26,26 @@
   const state = {
     index: 0,
     viewportWidth: viewport.getBoundingClientRect().width,
-    isDragging: false,
+    isDragging: false,   // swipe horizontal confirmado e em andamento
+    isPending: false,    // ponteiro pressionado, intenção ainda não decidida
+    isTouch: false,      // gesto atual veio de touch (vs. mouse)
     startX: 0,
+    startY: 0,
+    lastX: 0,
+    startTime: 0,
     startTranslate: 0,
     currentDrag: 0,
     sectionInView: false,
   };
+
+  // distância mínima (px) para decidir a direção do gesto
+  const DIRECTION_LOCK = 10;
+  // um movimento horizontal só "vence" o vertical se for claramente mais forte
+  const DIRECTION_RATIO = 1.2;
+  // proporção da largura do viewport necessária para trocar de slide
+  const SWIPE_THRESHOLD_RATIO = 0.22;
+  // swipe rápido (flick) troca de slide mesmo com pouca distância
+  const FLICK_VELOCITY = 0.55; // px/ms
 
   /* =====================================================
      NAVEGAÇÃO PRINCIPAL
@@ -90,26 +104,76 @@
   /* =====================================================
      SWIPE / DRAG — pointer events (mouse, touch e caneta)
      ===================================================== */
+  function resetGesture() {
+    state.isDragging = false;
+    state.isPending = false;
+    viewport.classList.remove("is-dragging");
+  }
+
   function onPointerDown(e) {
-    state.isDragging = true;
+    // apenas o botão principal do mouse inicia o gesto
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+
+    state.isPending = true;
+    state.isDragging = false;
+    state.isTouch = e.pointerType === "touch" || e.pointerType === "pen";
     state.startX = e.clientX;
+    state.startY = e.clientY;
+    state.lastX = e.clientX;
+    state.startTime = e.timeStamp;
     state.startTranslate = -state.index * state.viewportWidth;
     state.currentDrag = state.startTranslate;
-    viewport.classList.add("is-dragging");
-    applyTransform(state.currentDrag, false);
-    if (viewport.setPointerCapture && e.pointerId !== undefined) {
-      try { viewport.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
-    }
+    state.pointerId = e.pointerId;
+    // a captura só acontece quando a intenção horizontal for confirmada,
+    // para não competir com o scroll vertical nativo do celular
   }
 
   function onPointerMove(e) {
+    if (!state.isPending && !state.isDragging) return;
+
+    const dx = e.clientX - state.startX;
+    const dy = e.clientY - state.startY;
+
+    if (state.isPending && !state.isDragging) {
+      const adx = Math.abs(dx);
+      const ady = Math.abs(dy);
+
+      // ignora tremores/movimentos mínimos (toques, cliques, jitter)
+      if (adx < DIRECTION_LOCK && ady < DIRECTION_LOCK) return;
+
+      // mouse: qualquer arraste horizontal claro já é suficiente
+      // touch/pen: só assume o controle quando a intenção horizontal é clara,
+      // priorizando o scroll vertical em qualquer ambiguidade
+      const horizontalWins = state.isTouch
+        ? adx > ady * DIRECTION_RATIO && adx >= DIRECTION_LOCK
+        : adx >= ady;
+
+      if (!horizontalWins) {
+        // intenção vertical (ou diagonal indefinida): entrega o gesto ao
+        // scroll nativo da página e ignora o restante deste toque
+        state.isPending = false;
+        return;
+      }
+
+      state.isDragging = true;
+      state.isPending = false;
+      viewport.classList.add("is-dragging");
+      if (viewport.setPointerCapture && e.pointerId !== undefined) {
+        try { viewport.setPointerCapture(e.pointerId); } catch (err) { /* noop */ }
+      }
+    }
+
     if (!state.isDragging) return;
-    const delta = e.clientX - state.startX;
+
+    // com o swipe horizontal confirmado, evita que a página role junto
+    if (e.cancelable) e.preventDefault();
+
+    state.lastX = e.clientX;
 
     // resistência sutil ao arrastar além das bordas
-    let dampedDelta = delta;
-    if ((state.index === 0 && delta > 0) || (state.index === total - 1 && delta < 0)) {
-      dampedDelta = delta * 0.35;
+    let dampedDelta = dx;
+    if ((state.index === 0 && dx > 0) || (state.index === total - 1 && dx < 0)) {
+      dampedDelta = dx * 0.35;
     }
 
     state.currentDrag = state.startTranslate + dampedDelta;
@@ -117,16 +181,24 @@
   }
 
   function onPointerUp(e) {
-    if (!state.isDragging) return;
-    state.isDragging = false;
-    viewport.classList.remove("is-dragging");
+    if (!state.isDragging) {
+      resetGesture();
+      return;
+    }
 
-    const delta = (e.clientX !== undefined ? e.clientX : state.startX) - state.startX;
-    const threshold = state.viewportWidth * 0.16;
+    const endX = e.clientX !== undefined ? e.clientX : state.lastX;
+    const delta = endX - state.startX;
+    const elapsed = Math.max(1, (e.timeStamp || 0) - state.startTime);
+    const velocity = Math.abs(delta) / elapsed;
 
-    if (delta <= -threshold) {
+    resetGesture();
+
+    const distanceThreshold = state.viewportWidth * SWIPE_THRESHOLD_RATIO;
+    const isFlick = velocity >= FLICK_VELOCITY && Math.abs(delta) >= DIRECTION_LOCK * 2;
+
+    if (delta <= -distanceThreshold || (isFlick && delta < 0)) {
       next();
-    } else if (delta >= threshold) {
+    } else if (delta >= distanceThreshold || (isFlick && delta > 0)) {
       prev();
     } else {
       goTo(state.index, true);
@@ -136,9 +208,10 @@
   viewport.addEventListener("pointerdown", onPointerDown);
   viewport.addEventListener("pointermove", onPointerMove);
   viewport.addEventListener("pointerup", onPointerUp);
-  viewport.addEventListener("pointercancel", onPointerUp);
+  viewport.addEventListener("pointercancel", resetGesture);
   viewport.addEventListener("pointerleave", (e) => {
     if (state.isDragging) onPointerUp(e);
+    else resetGesture();
   });
 
   // evita que o navegador tente arrastar imagens/elementos nativamente

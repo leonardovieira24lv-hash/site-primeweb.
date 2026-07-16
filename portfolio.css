@@ -126,7 +126,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 22% 16%, rgba(201,168,105,0.10), transparent 58%);
+  background: radial-gradient(circle at 22% 16%, rgba(139,92,246,0.10), transparent 58%);
   pointer-events: none;
   z-index: 4;
 }
@@ -299,7 +299,7 @@
   border-radius: 50%;
   filter: blur(30px);
 }
-.pf-blob--gold{ background: radial-gradient(circle, rgba(201,168,105,0.38), rgba(201,168,105,0) 72%); }
+.pf-blob--gold{ background: radial-gradient(circle, rgba(139,92,246,0.38), rgba(139,92,246,0) 72%); }
 .pf-blob--ice{ background: radial-gradient(circle, rgba(244,244,242,0.14), rgba(244,244,242,0) 72%); }
 
 .pf-tag{
@@ -377,7 +377,7 @@
 
 /* =====================================================
    COMPOSIÇÃO 04 — LANDING PAGE JURÍDICA
-   Blueprint de coluna clássica, hairline dourado, selo.
+   Blueprint de coluna clássica, hairline roxo, selo.
    ===================================================== */
 .pf-case--04 .pf-line--col-1{ left: 20%; top: 8%; width: 1px; height: 84%; }
 .pf-case--04 .pf-line--col-2{ left: 50%; top: 8%; width: 1px; height: 84%; }

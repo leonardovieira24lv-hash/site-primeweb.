@@ -83,7 +83,7 @@
   padding: 0 var(--container-pad);
 }
 
-/* ---------- espinha central (trilho + preenchimento dourado) ---------- */
+/* ---------- espinha central (trilho + preenchimento roxo/azul) ---------- */
 .process__spine{
   position: absolute;
   top: 6px;
@@ -237,7 +237,7 @@
 
 .pc-orb--gold{
   border-color: var(--c-gold-dim);
-  background: rgba(201,168,105,0.05);
+  background: rgba(139,92,246,0.05);
 }
 
 .pc-dot{

@@ -151,7 +151,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 24% 18%, rgba(201,168,105,0.10), transparent 58%);
+  background: radial-gradient(circle at 24% 18%, rgba(139,92,246,0.10), transparent 58%);
   pointer-events: none;
   z-index: 4;
   opacity: 0.7;
@@ -196,7 +196,7 @@
   display: inline-block;
 }
 
-/* sublinhado dourado que se desenha no hover */
+/* sublinhado roxo que se desenha no hover */
 .why-block__title::after{
   content: "";
   position: absolute;
@@ -358,7 +358,7 @@
 .wy-case--03 .wy-bar--speed-1{ width: 46%; height: 2px; top: 34%; left: 8%; animation: wyFloat 6s ease-in-out infinite; }
 .wy-case--03 .wy-bar--speed-2{ width: 34%; height: 2px; top: 46%; left: 8%; animation: wyFloatAlt 7s ease-in-out infinite; }
 .wy-case--03 .wy-bar--speed-3{ width: 58%; height: 2px; top: 58%; left: 8%; animation: wyFloat 8s ease-in-out infinite; }
-.wy-case--03 .wy-scan{ position: absolute; left: 0; top: 0; width: 100%; height: 30%; background: linear-gradient(180deg, transparent, rgba(201,168,105,0.14), transparent); animation: wyScan 5s linear infinite; }
+.wy-case--03 .wy-scan{ position: absolute; left: 0; top: 0; width: 100%; height: 30%; background: linear-gradient(180deg, transparent, rgba(139,92,246,0.14), transparent); animation: wyScan 5s linear infinite; }
 .wy-case--03 .wy-tag{ bottom: 12%; right: 12%; color: var(--c-gold-soft); border-color: var(--c-gold-dim); }
 .wy-case--03 .wy-ring{ width: 12%; height: 12%; top: 14%; right: 14%; border-color: var(--c-gold-dim); }
 

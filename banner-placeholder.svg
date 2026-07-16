@@ -7,9 +7,17 @@
       <stop offset="100%" stop-color="#0a0a0b"/>
     </linearGradient>
     <radialGradient id="glow" cx="26%" cy="24%" r="55%">
-      <stop offset="0%" stop-color="#c9a869" stop-opacity="0.22"/>
-      <stop offset="100%" stop-color="#c9a869" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
     </radialGradient>
+    <radialGradient id="glow2" cx="78%" cy="80%" r="50%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="pwBannerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
     <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
       <path d="M48 0H0V48" fill="none" stroke="#232326" stroke-width="1"/>
     </pattern>
@@ -17,9 +25,10 @@
   <rect width="1600" height="900" fill="url(#bgGrad)"/>
   <rect width="1600" height="900" fill="url(#grid)" opacity="0.5"/>
   <rect width="1600" height="900" fill="url(#glow)"/>
+  <rect width="1600" height="900" fill="url(#glow2)"/>
   <rect x="24" y="24" width="1552" height="852" rx="18" fill="none" stroke="#3a3a3d" stroke-width="1.5" stroke-dasharray="10 8"/>
-  <polygon points="800,340 900,440 800,540 700,440" fill="none" stroke="#c9a869" stroke-width="1.6"/>
-  <polygon points="800,380 860,440 800,500 740,440" fill="none" stroke="#c9a869" stroke-width="1" opacity="0.6"/>
+  <polygon points="800,340 900,440 800,540 700,440" fill="none" stroke="url(#pwBannerGrad)" stroke-width="1.6"/>
+  <polygon points="800,380 860,440 800,500 740,440" fill="none" stroke="url(#pwBannerGrad)" stroke-width="1" opacity="0.6"/>
   <text x="800" y="620" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif" font-size="26" letter-spacing="4" fill="#8a8a8f">ESPAÇO RESERVADO PARA ARTE</text>
   <text x="800" y="654" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="2" fill="#5a5a5e">1600 × 900 · SUBSTITUIR PELO BRAND KIT OFICIAL</text>
 </svg>

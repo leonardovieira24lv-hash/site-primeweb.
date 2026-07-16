@@ -1,8 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 72" width="320" height="72" role="img" aria-labelledby="logoTitle">
   <title id="logoTitle">Prime Web — espaço reservado para o logo horizontal oficial</title>
+  <defs>
+    <linearGradient id="pwLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
   <rect x="1" y="1" width="318" height="70" rx="10" fill="none" stroke="#3a3a3d" stroke-width="1" stroke-dasharray="6 6"/>
-  <polygon points="30,16 46,36 30,56 14,36" fill="none" stroke="#c9a869" stroke-width="1.4"/>
-  <polygon points="30,26 38,36 30,46 22,36" fill="none" stroke="#c9a869" stroke-width="1"/>
+  <polygon points="30,16 46,36 30,56 14,36" fill="none" stroke="url(#pwLogoGrad)" stroke-width="1.4"/>
+  <polygon points="30,26 38,36 30,46 22,36" fill="none" stroke="url(#pwLogoGrad)" stroke-width="1"/>
   <text x="58" y="33" font-family="'Space Grotesk', Arial, sans-serif" font-size="17" letter-spacing="1" fill="#f4f4f2">PRIME WEB</text>
   <text x="58" y="50" font-family="Arial, sans-serif" font-size="9" letter-spacing="2.5" fill="#8a8a8f">SOLUÇÕES DIGITAIS</text>
   <text x="277" y="64" font-family="Arial, sans-serif" font-size="7" letter-spacing="0.5" fill="#5a5a5e">PLACEHOLDER</text>

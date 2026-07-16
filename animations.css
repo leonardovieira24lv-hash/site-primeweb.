@@ -96,7 +96,7 @@
   stroke-linejoin: round;
   stroke-dasharray: 460;
   stroke-dashoffset: 460;
-  filter: drop-shadow(0 0 6px rgba(201,168,105,0.45));
+  filter: drop-shadow(0 0 6px rgba(139,92,246,0.45));
 }
 
 .intro__mark-path--inner{

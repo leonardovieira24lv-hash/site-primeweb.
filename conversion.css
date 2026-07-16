@@ -704,7 +704,7 @@
   justify-content: center;
   background: linear-gradient(150deg, var(--c-graphite-2), var(--c-black));
   border: 1px solid var(--c-gold-dim);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(201,168,105,0.08);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(139,92,246,0.08);
   transition: transform var(--dur-med) var(--ease-out), box-shadow var(--dur-med) var(--ease-out);
 }
 

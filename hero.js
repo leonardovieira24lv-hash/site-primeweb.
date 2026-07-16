@@ -151,7 +151,7 @@
 
         if (dist < MAX_LINK_DIST) {
           const alpha = (1 - dist / MAX_LINK_DIST) * 0.16;
-          ctx.strokeStyle = `rgba(201,168,105,${alpha})`;
+          ctx.strokeStyle = `rgba(139,92,246,${alpha})`;
           ctx.lineWidth = 0.6;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -166,7 +166,7 @@
       const p = particles[i];
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.gold ? "rgba(230,211,166,0.55)" : "rgba(244,244,242,0.35)";
+      ctx.fillStyle = p.gold ? "rgba(96,165,250,0.55)" : "rgba(244,244,242,0.35)";
       ctx.fill();
     }
   }

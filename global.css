@@ -11,17 +11,22 @@
   --c-ice-dim:       rgba(244,244,242,0.64);
   --c-ice-faint:     rgba(244,244,242,0.14);
 
-  --c-gold:          #c9a869;   /* dourado metálico — destaque */
-  --c-gold-soft:     #e6d3a6;
-  --c-gold-dim:      rgba(201,168,105,0.35);
+  --c-gold:          #8b5cf6;   /* roxo — destaque primário */
+  --c-gold-soft:     #60a5fa;   /* azul elétrico — destaque secundário */
+  --c-gold-dim:      rgba(139,92,246,0.35);
+
+  --c-purple:        #7c3aed;   /* roxo profundo */
+  --c-purple-2:      #6366f1;   /* roxo-azulado (transição) */
+  --c-blue:          #2563eb;   /* azul elétrico profundo */
+  --c-blue-soft:     #60a5fa;   /* azul elétrico claro */
 
   --c-border:        rgba(244,244,242,0.08);
   --c-border-strong:  rgba(244,244,242,0.16);
 
   /* ---------- gradientes ---------- */
   --g-surface: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0));
-  --g-gold:    linear-gradient(120deg, #b8925a 0%, #e6d3a6 45%, #c9a869 100%);
-  --g-radial-gold: radial-gradient(circle, rgba(201,168,105,0.22), rgba(201,168,105,0) 70%);
+  --g-gold:    linear-gradient(120deg, #7c3aed 0%, #6366f1 45%, #2563eb 100%);
+  --g-radial-gold: radial-gradient(circle, rgba(139,92,246,0.24), rgba(139,92,246,0) 70%);
 
   /* ---------- tipografia ---------- */
   --f-display: "Space Grotesk", "Inter", system-ui, sans-serif;
@@ -165,12 +170,12 @@ button{
 
 .btn--primary{
   background: var(--g-gold);
-  color: #100b02;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 12px 30px -12px rgba(201,168,105,0.55);
+  color: var(--c-ice);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.16) inset, 0 12px 30px -12px rgba(139,92,246,0.6);
 }
 .btn--primary:hover{
   transform: translateY(-2px);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.45) inset, 0 18px 40px -12px rgba(201,168,105,0.7);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.22) inset, 0 18px 40px -12px rgba(37,99,235,0.75);
 }
 .btn--primary:hover .btn__icon{ transform: translateX(3px); }
 .btn--primary:active{ transform: translateY(0); }
@@ -183,7 +188,7 @@ button{
 }
 .btn--ghost:hover{
   border-color: var(--c-gold-dim);
-  background: rgba(201,168,105,0.06);
+  background: rgba(139,92,246,0.06);
   transform: translateY(-2px);
 }
 
@@ -263,7 +268,7 @@ body.cursor-active .cursor-ring{ opacity: 1; }
 body.cursor-hover .cursor-ring{
   width: 64px; height: 64px;
   border-color: var(--c-gold-dim);
-  background: rgba(201,168,105,0.06);
+  background: rgba(139,92,246,0.06);
 }
 body.cursor-hover .cursor-dot{
   width: 8px; height: 8px;
