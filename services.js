@@ -38,10 +38,16 @@
     sectionInView: false,
   };
 
-  // distância mínima (px) para decidir a direção do gesto
+  // distância mínima (px) para decidir a direção do gesto (mouse/caneta)
   const DIRECTION_LOCK = 10;
+  // distância mínima (px) bem maior, exigida só para gestos touch,
+  // para não competir com o primeiro impulso de um scroll vertical
+  const TOUCH_DIRECTION_LOCK = 18;
   // um movimento horizontal só "vence" o vertical se for claramente mais forte
   const DIRECTION_RATIO = 1.2;
+  // em touch a barra é bem mais alta: o scroll vertical tem prioridade quase total,
+  // só perdendo quando a intenção horizontal é inequívoca
+  const TOUCH_DIRECTION_RATIO = 2.4;
   // proporção da largura do viewport necessária para trocar de slide
   const SWIPE_THRESHOLD_RATIO = 0.22;
   // swipe rápido (flick) troca de slide mesmo com pouca distância
@@ -50,17 +56,22 @@
   /* =====================================================
      NAVEGAÇÃO PRINCIPAL
      ===================================================== */
-  function applyTransform(px, withTransition) {
+  function applyTransform(px, withTransition, duration) {
     track.style.transition = withTransition && !reduceMotion
-      ? "transform 620ms cubic-bezier(.16,.8,.24,1)"
+      ? `transform ${duration || 620}ms cubic-bezier(.16,.8,.3,1)`
       : "none";
     track.style.transform = `translateX(${px}px)`;
   }
 
   function goTo(index, withTransition) {
+    const prevIndex = state.index;
     state.index = ((index % total) + total) % total; // wrap-around
     const px = -state.index * state.viewportWidth;
-    applyTransform(px, withTransition !== false);
+    const steps = Math.max(1, Math.abs(state.index - prevIndex));
+    // pequenas viagens são mais rápidas e "estaladas"; viagens maiores ganham
+    // um pouco mais de tempo para não parecerem abruptas
+    const duration = withTransition === false ? 0 : Math.min(760, 520 + steps * 60);
+    applyTransform(px, withTransition !== false, duration);
     updateUI();
   }
 
@@ -137,21 +148,25 @@
     if (state.isPending && !state.isDragging) {
       const adx = Math.abs(dx);
       const ady = Math.abs(dy);
+      const lock = state.isTouch ? TOUCH_DIRECTION_LOCK : DIRECTION_LOCK;
+      const ratio = state.isTouch ? TOUCH_DIRECTION_RATIO : DIRECTION_RATIO;
 
       // ignora tremores/movimentos mínimos (toques, cliques, jitter)
-      if (adx < DIRECTION_LOCK && ady < DIRECTION_LOCK) return;
+      if (adx < lock && ady < lock) return;
 
       // mouse: qualquer arraste horizontal claro já é suficiente
-      // touch/pen: só assume o controle quando a intenção horizontal é clara,
-      // priorizando o scroll vertical em qualquer ambiguidade
+      // touch/pen: só assume o controle quando a intenção horizontal é muito
+      // clara, priorizando sempre o scroll vertical nativo em qualquer ambiguidade
       const horizontalWins = state.isTouch
-        ? adx > ady * DIRECTION_RATIO && adx >= DIRECTION_LOCK
-        : adx >= ady;
+        ? adx > ady * ratio && adx >= lock
+        : adx >= ady * ratio;
 
       if (!horizontalWins) {
-        // intenção vertical (ou diagonal indefinida): entrega o gesto ao
-        // scroll nativo da página e ignora o restante deste toque
-        state.isPending = false;
+        // ainda ambíguo: aguarda mais uma amostra antes de decidir por vertical,
+        // exceto quando o vertical já é claramente dominante — aí libera de vez
+        if (ady > adx * 1.5 && ady >= DIRECTION_LOCK) {
+          state.isPending = false;
+        }
         return;
       }
 

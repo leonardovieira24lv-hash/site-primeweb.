@@ -113,13 +113,19 @@
   overflow: hidden;
   opacity: 0;
   transform: scale(0.96) translateY(22px);
-  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out);
+  transition: opacity 900ms var(--ease-out), transform 900ms var(--ease-out),
+              border-color 420ms var(--ease-out), box-shadow 420ms var(--ease-out);
   will-change: transform;
 }
 
 .portfolio-case.is-inview .portfolio-case__frame{
   opacity: 1;
   transform: scale(1) translateY(0);
+}
+
+.portfolio-case__frame:hover{
+  border-color: var(--c-gold-dim);
+  box-shadow: 0 24px 60px -24px rgba(139,92,246,0.35);
 }
 
 .portfolio-case__frame::before{

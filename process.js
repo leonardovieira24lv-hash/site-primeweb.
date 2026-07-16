@@ -79,6 +79,9 @@
   }
 
   let nodeRatios = [];
+  let targetProgress = 0;
+  let renderedProgress = 0;
+  let rafId = null;
 
   function measure() {
     const timelineRect = timeline.getBoundingClientRect();
@@ -93,18 +96,39 @@
     });
   }
 
-  function update() {
+  function computeTarget() {
     const rect = timeline.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
-
     // progresso 0 -> 1 conforme a timeline atravessa o viewport
-    const progress = Math.min(1, Math.max(0, (vh - rect.top) / (rect.height + vh)));
+    targetProgress = Math.min(1, Math.max(0, (vh - rect.top) / (rect.height + vh)));
+  }
 
-    spineFill.style.transform = `scaleY(${progress})`;
+  function render() {
+    // interpolação suave: a linha "persegue" o progresso real do scroll,
+    // criando uma sensação fluida em vez de um acompanhamento 1:1 abrupto
+    const diff = targetProgress - renderedProgress;
+    if (Math.abs(diff) < 0.0008) {
+      renderedProgress = targetProgress;
+    } else {
+      renderedProgress += diff * 0.16;
+    }
+
+    spineFill.style.transform = `scaleY(${renderedProgress})`;
 
     steps.forEach((step, i) => {
-      step.classList.toggle("is-active", progress >= nodeRatios[i]);
+      step.classList.toggle("is-active", renderedProgress >= nodeRatios[i]);
     });
+
+    if (Math.abs(targetProgress - renderedProgress) > 0.0005) {
+      rafId = window.requestAnimationFrame(render);
+    } else {
+      rafId = null;
+    }
+  }
+
+  function update() {
+    computeTarget();
+    if (!rafId) rafId = window.requestAnimationFrame(render);
   }
 
   let ticking = false;
@@ -128,7 +152,9 @@
   }
 
   measure();
-  update();
+  computeTarget();
+  renderedProgress = targetProgress;
+  spineFill.style.transform = `scaleY(${renderedProgress})`;
 
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onResize);
