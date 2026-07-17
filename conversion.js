@@ -182,30 +182,4 @@
       }, 1400);
     });
   })();
-
-  /* =====================================================
-     05 — WHATSAPP FLUTUANTE
-     ===================================================== */
-  (function initWhatsappFloat() {
-    const button = document.querySelector(".whatsapp-float");
-    if (!button) return;
-
-    function toggle() {
-      if (window.scrollY > window.innerHeight * 0.6) {
-        button.classList.add("is-visible");
-      } else {
-        button.classList.remove("is-visible");
-      }
-    }
-
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => { toggle(); ticking = false; });
-        ticking = true;
-      }
-    }, { passive: true });
-
-    toggle();
-  })();
 })();
