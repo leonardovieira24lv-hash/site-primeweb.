@@ -119,6 +119,12 @@
   border-radius: var(--radius-l);
   border: 1px solid var(--c-border-strong);
   background:
+    radial-gradient(3px 3px at 78% 24%, rgba(139,92,246,0.55), transparent 60%),
+    radial-gradient(2px 2px at 88% 62%, rgba(96,165,250,0.5), transparent 60%),
+    radial-gradient(2.5px 2.5px at 18% 78%, rgba(139,92,246,0.4), transparent 60%),
+    radial-gradient(2px 2px at 30% 20%, rgba(96,165,250,0.35), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(244,244,242,0.035) 0px, rgba(244,244,242,0.035) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(0deg, rgba(244,244,242,0.035) 0px, rgba(244,244,242,0.035) 1px, transparent 1px, transparent 64px),
     radial-gradient(ellipse 62% 54% at 50% 42%, rgba(139,92,246,0.16), transparent 70%),
     radial-gradient(ellipse 50% 40% at 82% 88%, rgba(96,165,250,0.08), transparent 72%),
     var(--c-graphite-2);
@@ -163,8 +169,8 @@
   display: block;
   width: auto;
   height: auto;
-  max-width: 58%;
-  max-height: 78%;
+  max-width: 49%;
+  max-height: 66%;
   object-fit: contain;
   object-position: center;
   margin: auto;
@@ -176,15 +182,15 @@
 /* numeral editorial — marca d'água do estudo de caso */
 .portfolio-case__number{
   position: absolute;
-  bottom: 16px;
-  right: 22px;
+  bottom: 26px;
+  right: 32px;
   z-index: 5;
   font-family: var(--f-display);
-  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: rgba(244,244,242,0.08);
-  -webkit-text-stroke: 1px rgba(244,244,242,0.14);
+  color: rgba(244,244,242,0.055);
+  -webkit-text-stroke: 1px rgba(244,244,242,0.09);
   pointer-events: none;
   line-height: 1;
 }
