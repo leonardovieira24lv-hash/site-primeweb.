@@ -102,14 +102,26 @@
   gap: 36px;
 }
 
-/* ---------- moldura / imagem artística ---------- */
+/* ---------- moldura / palco do mockup ----------
+   O frame nunca corta a imagem: ele se comporta como uma
+   "vitrine" com fundo elegante que acomoda qualquer proporção
+   (mockups verticais de celular incluídos). A imagem nunca é
+   forçada a preencher a moldura — ela é exibida por inteiro,
+   centralizada, com respiro (padding) ao redor. */
 .portfolio-case__frame{
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 3.2;
+  min-height: clamp(440px, 108vw, 620px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(28px, 6vw, 56px);
   border-radius: var(--radius-l);
   border: 1px solid var(--c-border-strong);
-  background: var(--c-graphite-2);
+  background:
+    radial-gradient(ellipse 62% 54% at 50% 42%, rgba(139,92,246,0.16), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 82% 88%, rgba(96,165,250,0.08), transparent 72%),
+    var(--c-graphite-2);
   overflow: hidden;
   opacity: 0;
   transform: scale(0.96) translateY(22px);
@@ -147,16 +159,17 @@
 }
 
 .portfolio-case__canvas{
-  position: absolute;
-  top: -14px;
-  left: 0;
-  right: 0;
-  bottom: -14px;
-  width: 100%;
-  height: calc(100% + 28px);
-  object-fit: cover;
-  object-position: center;
+  position: relative;
   display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  margin: auto;
+  border-radius: 18px;
+  filter: drop-shadow(0 30px 54px rgba(0,0,0,0.45));
   will-change: transform;
 }
 
@@ -281,19 +294,20 @@
 @media (min-width: 900px){
   .portfolio-case{
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
     gap: clamp(48px, 6vw, 96px);
     min-height: 74vh;
   }
 
   .portfolio-case__frame{
     flex: 1 1 58%;
-    aspect-ratio: 5 / 4;
+    min-height: 0;
   }
 
   .portfolio-case__content{
     flex: 1 1 40%;
     gap: 16px;
+    align-self: center;
   }
 
   .portfolio-case:nth-of-type(even){

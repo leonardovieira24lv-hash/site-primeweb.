@@ -88,7 +88,7 @@
 
         const center = rect.top + rect.height / 2;
         const offset = (center - viewportH / 2) / viewportH; // aprox. -0.5 a 0.5
-        const translate = offset * -26; // deslocamento sutil, no espírito do Hero
+        const translate = offset * -10; // deslocamento sutil — reduzido para não colidir com o padding do palco (mockup exibido por inteiro, sem cover)
         canvas.style.transform = `translateY(${translate}px)`;
       });
 
