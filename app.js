@@ -29,7 +29,8 @@
 
   // salvaguarda: se por algum motivo o evento não disparar, revela mesmo assim
   window.setTimeout(() => {
-    if (body.classList.contains("is-loading")) {
+    if (!window.__primeIntroDone) {
+      window.__primeIntroDone = true;
       body.classList.remove("is-loading");
       revealHero();
     }

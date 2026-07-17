@@ -104,16 +104,22 @@
   will-change: opacity;
 }
 
-/* --------- palco central --------- */
+/* --------- palco central ---------
+   Ocupa o quadro inteiro da intro e empilha símbolo + logo na mesma
+   célula do grid. Isso garante centralização robusta em qualquer
+   resolução, sem depender de margin:auto contra uma caixa que só
+   tinha o tamanho do símbolo (a causa do deslocamento em alguns
+   celulares). */
 .intro__stage{
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 
 .intro__mark-wrap{
+  grid-area: 1 / 1;
   position: relative;
   width: 108px;
   height: 108px;
@@ -146,13 +152,10 @@
 }
 
 /* --------- logo horizontal oficial (assume o lugar do símbolo) ---------
-   Centralizada via inset:0 + margin:auto (não usa translate),
-   assim a escala/opacidade animada pelo GSAP nunca disputa com o
-   posicionamento — o ponto central coincide sempre com o do símbolo. */
+   Empilhada na mesma célula de grid do símbolo (grid-area: 1 / 1),
+   então o centro de ambos coincide sempre, em qualquer resolução. */
 .intro__logo-img{
-  position: absolute;
-  inset: 0;
-  margin: auto;
+  grid-area: 1 / 1;
   width: 300px;
   max-width: 62vw;
   height: auto;
@@ -163,6 +166,48 @@
   user-select: none;
   -webkit-user-drag: none;
   will-change: opacity, transform, filter;
+}
+
+/* =====================================================
+   ELEMENTOS GRÁFICOS DO BRAND KIT
+   Recortes dos raios de luz oficiais (banner-principal /
+   banner-secundario), aplicados como textura de fundo via
+   mix-blend-mode:screen — o preto do recorte desaparece e
+   sobra apenas o brilho, reforçando a identidade visual sem
+   nunca exibir um banner literal na tela.
+   ===================================================== */
+.brand-glow{
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.brand-glow--corner{
+  top: -6%;
+  right: -4%;
+  width: 340px;
+  height: 190px;
+  background-image: url("brand-glow-a.png");
+}
+
+.brand-glow--divider{
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(700px, 90%);
+  height: 90px;
+  background-image: url("brand-glow-b.png");
+  background-size: cover;
+  opacity: 0.4;
+}
+
+@media (max-width: 640px){
+  .brand-glow--corner{ width: 200px; height: 112px; opacity: 0.4; }
+  .brand-glow--divider{ height: 60px; opacity: 0.3; }
 }
 
 /* =====================================================

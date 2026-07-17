@@ -45,11 +45,16 @@
 }
 
 .header__logo-mark{
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
   object-fit: contain;
   display: block;
+  transition: transform var(--dur-med) var(--ease-out);
+}
+
+.header__logo:hover .header__logo-mark{
+  transform: scale(1.06);
 }
 
 .header__logo-text{
@@ -168,9 +173,23 @@ body.menu-open .header__burger span:nth-child(3){
   opacity: 0;
   visibility: hidden;
   transform: translateY(-12px);
+  overflow: hidden;
   transition: opacity var(--dur-med) var(--ease-out),
               transform var(--dur-med) var(--ease-out),
               visibility 0s linear var(--dur-med);
+}
+
+.mobile-menu::before{
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: -12%;
+  width: 240px;
+  height: 190px;
+  background: url("brand-glow-a.png") center / cover no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 body.menu-open .mobile-menu{
@@ -184,8 +203,12 @@ body.menu-open .mobile-menu{
 
 /* ---------- selo de marca (logo vertical oficial) ---------- */
 .mobile-menu__brand{
+  position: relative;
+  z-index: 1;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 8px;
   opacity: 0;
   transform: translateY(-8px);
@@ -193,10 +216,17 @@ body.menu-open .mobile-menu{
 }
 
 .mobile-menu__brand img{
-  height: 64px;
+  height: 78px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 18px rgba(139,92,246,0.25));
+  filter: drop-shadow(0 0 22px rgba(139,92,246,0.3));
+}
+
+.mobile-menu__brand::after{
+  content: "";
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--c-gold-dim), transparent);
 }
 
 body.menu-open .mobile-menu__brand{

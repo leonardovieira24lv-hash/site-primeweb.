@@ -46,9 +46,9 @@
 }
 
 .site-footer__logo{
-  height: 40px;
+  height: 56px;
   width: auto;
-  opacity: 0.94;
+  opacity: 0.96;
 }
 
 .site-footer__desc{
@@ -98,7 +98,7 @@
 /* ---------- colunas de links ---------- */
 .site-footer__columns{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: clamp(32px, 5vw, 56px);
 }
 
@@ -183,8 +183,10 @@
 
 .site-footer__seal{
   flex-shrink: 0;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  opacity: 0.9;
+  opacity: 0.92;
 }
 
 .site-footer__legal{
@@ -220,7 +222,7 @@
    ===================================================== */
 @media (min-width: 640px){
   .site-footer__columns{
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

@@ -22,7 +22,6 @@
   const SESSION_KEY = "primewebIntroPlayed";
 
   const intro       = document.getElementById("intro");
-  const stage       = document.getElementById("introStage");
   const glow        = document.getElementById("introGlow");
   const particlesEl = document.getElementById("introParticles");
   const markWrap    = document.getElementById("introMarkWrap");
@@ -33,6 +32,8 @@
 
   /* ---------- finalização (contrato com app.js) ---------- */
   function finish() {
+    if (window.__primeIntroDone) return; // evita disparo duplicado
+    window.__primeIntroDone = true;
     body.classList.remove("is-loading");
     document.dispatchEvent(new CustomEvent("prime:introComplete"));
   }
@@ -57,7 +58,12 @@
 
   if (!intro || reduceMotion || alreadyPlayed || !hasGSAP) {
     hideIntroInstantly();
-    finish();
+    // Adiado para o próximo tick: garante que app.js (carregado depois)
+    // já tenha registrado o listener de "prime:introComplete" antes do
+    // evento ser disparado. Sem isso, em um refresh (alreadyPlayed = true)
+    // o evento disparava antes de existir alguém ouvindo, e o Hero
+    // nunca era revelado.
+    window.setTimeout(finish, 0);
     return;
   }
 
@@ -66,6 +72,8 @@
   } catch (e) {
     /* silencioso */
   }
+
+  try {
 
   /* =====================================================
      PARTÍCULAS — Canvas API
@@ -243,5 +251,13 @@
       ease: "power1.in",
       onStart: finish, // dispara o reveal do Hero em paralelo ao fade final
     }, 2.48);
+
+  } catch (e) {
+    // Fallback definitivo: qualquer falha na intro animada (elemento
+    // ausente, GSAP com erro, canvas indisponível etc.) nunca pode
+    // prender o usuário na tela de carregamento.
+    hideIntroInstantly();
+    finish();
+  }
 
 })();
