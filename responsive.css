@@ -13,8 +13,8 @@
 @media (min-width: 640px){
   :root{ --container-pad: 5vw; }
 
-  .intro__mark{ width: 96px; height: 96px; }
-  .intro__title{ font-size: 1.7rem; }
+  .intro__mark-wrap{ width: 118px; height: 118px; }
+  .intro__logo-img{ width: 340px; }
 }
 
 /* ---------- ≥ 768px : tablet / nav desktop aparece ---------- */
@@ -39,9 +39,8 @@
   .hero__content{ gap: 32px; }
   .hero__subtitle{ max-width: 560px; }
 
-  .intro__mark{ width: 108px; height: 108px; }
-  .intro__title{ font-size: 1.9rem; letter-spacing: 0.36em; }
-  .intro__tagline{ font-size: 0.86rem; }
+  .intro__mark-wrap{ width: 132px; height: 132px; }
+  .intro__logo-img{ width: 380px; }
 }
 
 /* ---------- ≥ 1280px : desktop grande ---------- */

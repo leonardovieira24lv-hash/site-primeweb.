@@ -175,6 +175,18 @@
   color: var(--c-ice-faint);
 }
 
+.site-footer__copy{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-footer__seal{
+  flex-shrink: 0;
+  border-radius: 50%;
+  opacity: 0.9;
+}
+
 .site-footer__legal{
   display: flex;
   flex-wrap: wrap;

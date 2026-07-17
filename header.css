@@ -45,10 +45,11 @@
 }
 
 .header__logo-mark{
-  width: 22px;
-  height: 22px;
-  color: var(--c-gold);
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
+  object-fit: contain;
+  display: block;
 }
 
 .header__logo-text{
@@ -179,6 +180,29 @@ body.menu-open .mobile-menu{
   transition: opacity var(--dur-med) var(--ease-out),
               transform var(--dur-med) var(--ease-out),
               visibility 0s linear 0s;
+}
+
+/* ---------- selo de marca (logo vertical oficial) ---------- */
+.mobile-menu__brand{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+
+.mobile-menu__brand img{
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 18px rgba(139,92,246,0.25));
+}
+
+body.menu-open .mobile-menu__brand{
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 40ms;
 }
 
 .mobile-menu__nav{

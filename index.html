@@ -6,7 +6,17 @@
 <title>Prime Web — Experiências Digitais Premium</title>
 <meta name="description" content="Prime Web entrega experiências digitais premium: sites institucionais, landing pages, branding e soluções digitais sob medida.">
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon.png">
+
+<!-- Open Graph / Twitter Card — usa o banner secundário oficial (horizontal) -->
+<meta property="og:title" content="Prime Web — Experiências Digitais Premium">
+<meta property="og:description" content="Sites profissionais que conectam e geram resultados. Sites institucionais, lojas virtuais, SEO, tráfego pago e identidade visual.">
+<meta property="og:image" content="https://primeweb.com.br/banner-secundario.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://primeweb.com.br/banner-secundario.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +33,9 @@
 <link rel="stylesheet" href="footer.css">
 <link rel="stylesheet" href="animations.css">
 <link rel="stylesheet" href="responsive.css">
+
+<!-- GSAP — utilizado exclusivamente pela Brand Intro (intro.js) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
 </head>
 <body class="is-loading">
 
@@ -33,19 +46,23 @@
 <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
 <!-- ============================= -->
-<!-- INTRO                         -->
+<!-- INTRO — BRAND INTRO PREMIUM   -->
 <!-- ============================= -->
 <div class="intro" id="intro" aria-hidden="true">
-  <div class="intro__stage">
-    <svg class="intro__mark" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon class="intro__mark-path" points="80,14 146,80 80,146 14,80" />
-      <polygon class="intro__mark-path intro__mark-path--inner" points="80,50 110,80 80,110 50,80" />
-      <line class="intro__mark-path intro__mark-path--axis" x1="80" y1="14" x2="80" y2="146" />
-    </svg>
-    <div class="intro__type">
-      <span class="intro__title">PRIME WEB</span>
-      <span class="intro__tagline">Experiências Digitais Premium</span>
+
+  <!-- glow suave central, cores oficiais da marca -->
+  <div class="intro__glow" id="introGlow" aria-hidden="true"></div>
+
+  <!-- partículas (Canvas API) -->
+  <canvas class="intro__particles" id="introParticles" aria-hidden="true"></canvas>
+
+  <div class="intro__stage" id="introStage">
+    <div class="intro__mark-wrap" id="introMarkWrap">
+      <img class="intro__mark-img" id="introMarkImg" src="symbol-mark.png" alt="" draggable="false">
+      <div class="intro__mark-shine" id="introShine" aria-hidden="true"></div>
     </div>
+
+    <img class="intro__logo-img" id="introLogoImg" src="logo-horizontal.png" alt="Prime Web — Soluções Digitais" draggable="false">
   </div>
 </div>
 
@@ -55,10 +72,7 @@
 <header class="header" id="header">
   <div class="header__inner">
     <a href="#topo" class="header__logo" aria-label="Prime Web — Início">
-      <svg class="header__logo-mark" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="80,14 146,80 80,146 14,80" stroke="currentColor" stroke-width="8"/>
-        <polygon points="80,50 110,80 80,110 50,80" stroke="currentColor" stroke-width="8"/>
-      </svg>
+      <img class="header__logo-mark" src="symbol-mark.png" alt="" width="28" height="28" draggable="false">
       <span class="header__logo-text">PRIME<em>WEB</em></span>
     </a>
 
@@ -84,6 +98,9 @@
 
 <!-- MENU MOBILE -->
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__brand">
+    <img src="logo-vertical.png" alt="Prime Web" draggable="false">
+  </div>
   <nav class="mobile-menu__nav" aria-label="Navegação mobile">
     <a href="#servicos" class="mobile-menu__link"><span class="mobile-menu__index">01</span>Serviços</a>
     <a href="#sobre" class="mobile-menu__link"><span class="mobile-menu__index">02</span>Sobre</a>
@@ -1121,7 +1138,7 @@
   <div class="site-footer__top">
 
     <div class="site-footer__brand reveal-up">
-      <img class="site-footer__logo" src="logo-horizontal.svg" alt="Prime Web">
+      <img class="site-footer__logo" src="logo-horizontal.png" alt="Prime Web">
       <p class="site-footer__desc">
         Soluções digitais sob medida — sites institucionais, landing pages, branding e experiências interativas para marcas que não se contentam com o padrão.
       </p>
@@ -1174,7 +1191,10 @@
   </div>
 
   <div class="site-footer__bottom">
-    <p>&copy; <span data-current-year>2026</span> Prime Web. Todos os direitos reservados.</p>
+    <p class="site-footer__copy">
+      <img class="site-footer__seal" src="logo-circular.png" alt="" width="24" height="24" draggable="false">
+      &copy; <span data-current-year>2026</span> Prime Web. Todos os direitos reservados.
+    </p>
     <div class="site-footer__legal">
       <a href="#politica-privacidade">Política de Privacidade</a>
       <a href="#termos">Termos de Uso</a>
