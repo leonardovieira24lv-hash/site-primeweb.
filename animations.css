@@ -169,48 +169,6 @@
 }
 
 /* =====================================================
-   ELEMENTOS GRÁFICOS DO BRAND KIT
-   Recortes dos raios de luz oficiais (banner-principal /
-   banner-secundario), aplicados como textura de fundo via
-   mix-blend-mode:screen — o preto do recorte desaparece e
-   sobra apenas o brilho, reforçando a identidade visual sem
-   nunca exibir um banner literal na tela.
-   ===================================================== */
-.brand-glow{
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.55;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.brand-glow--corner{
-  top: -6%;
-  right: -4%;
-  width: 340px;
-  height: 190px;
-  background-image: url("brand-glow-a.png");
-}
-
-.brand-glow--divider{
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(700px, 90%);
-  height: 90px;
-  background-image: url("brand-glow-b.png");
-  background-size: cover;
-  opacity: 0.4;
-}
-
-@media (max-width: 640px){
-  .brand-glow--corner{ width: 200px; height: 112px; opacity: 0.4; }
-  .brand-glow--divider{ height: 60px; opacity: 0.3; }
-}
-
-/* =====================================================
    MICRO-INTERAÇÕES DE HOVER PREMIUM
    ===================================================== */
 .btn::before{

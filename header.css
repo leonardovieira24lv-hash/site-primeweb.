@@ -40,34 +40,19 @@
 .header__logo{
   display: flex;
   align-items: center;
-  gap: 10px;
   color: var(--c-ice);
 }
 
-.header__logo-mark{
-  width: 32px;
-  height: 32px;
-  flex-shrink: 0;
+.header__logo-img{
+  height: 36px;
+  width: auto;
   object-fit: contain;
   display: block;
   transition: transform var(--dur-med) var(--ease-out);
 }
 
-.header__logo:hover .header__logo-mark{
-  transform: scale(1.06);
-}
-
-.header__logo-text{
-  font-family: var(--f-display);
-  font-size: 0.98rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-.header__logo-text em{
-  font-style: normal;
-  color: var(--c-ice-dim);
-  font-weight: 400;
-  margin-left: 2px;
+.header__logo:hover .header__logo-img{
+  transform: scale(1.04);
 }
 
 /* ---------- nav desktop ---------- */
@@ -173,23 +158,9 @@ body.menu-open .header__burger span:nth-child(3){
   opacity: 0;
   visibility: hidden;
   transform: translateY(-12px);
-  overflow: hidden;
   transition: opacity var(--dur-med) var(--ease-out),
               transform var(--dur-med) var(--ease-out),
               visibility 0s linear var(--dur-med);
-}
-
-.mobile-menu::before{
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -12%;
-  width: 240px;
-  height: 190px;
-  background: url("brand-glow-a.png") center / cover no-repeat;
-  mix-blend-mode: screen;
-  opacity: 0.5;
-  pointer-events: none;
 }
 
 body.menu-open .mobile-menu{

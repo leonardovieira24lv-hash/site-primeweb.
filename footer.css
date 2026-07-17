@@ -46,7 +46,7 @@
 }
 
 .site-footer__logo{
-  height: 56px;
+  height: 46px;
   width: auto;
   opacity: 0.96;
 }
@@ -183,8 +183,8 @@
 
 .site-footer__seal{
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   opacity: 0.92;
 }
