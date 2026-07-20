@@ -168,6 +168,13 @@
   will-change: transform;
 }
 
+.why-block__canvas img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ---------- conteúdo textual ---------- */
 .why-block__content{
   position: relative;
