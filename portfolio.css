@@ -111,11 +111,13 @@
 .portfolio-case__frame{
   position: relative;
   width: 100%;
-  min-height: clamp(440px, 108vw, 620px);
+  max-width: clamp(210px, 63vw, 270px);
+  margin: 0 auto;
+  min-height: clamp(195px, 56vw, 245px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(28px, 6vw, 56px);
+  padding: clamp(40px, 5vw, 60px);
   border-radius: var(--radius-l);
   border: 1px solid var(--c-border-strong);
   background:
@@ -169,8 +171,8 @@
   display: block;
   width: auto;
   height: auto;
-  max-width: 57%;
-  max-height: 77%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   object-position: center;
   margin: auto;
@@ -307,6 +309,8 @@
 
   .portfolio-case__frame{
     flex: 1 1 58%;
+    max-width: none;
+    margin: 0;
     min-height: 0;
   }
 
